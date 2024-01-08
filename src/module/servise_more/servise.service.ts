@@ -6,8 +6,6 @@ import { UpdateServiseDto } from './dto/update_servise.dto';
 import {
   allowedImageFormats,
 } from 'src/utils/videoAndImageFormat';
-
-import { ShortHistoryEntity } from 'src/entities/short_history.entity';
 import { ServiseEntity } from 'src/entities/servise.entity';
 
 @Injectable()
@@ -81,10 +79,18 @@ export class ServiseMoreServise {
     body: UpdateServiseDto ,
     servise_image: Express.Multer.File,
   ) {
+    console.log('okkk');
+    
     const findServise = await ServiseEntity.findOne({
-      where: { id },
+      where: { id  },
+    }).catch((e ) => { 
+      console.log(e)
+      
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
 
+    console.log(findServise);
+    
     if (!findServise) {
       throw new HttpException('Book not found', HttpStatus.NOT_FOUND);
     }
@@ -95,29 +101,35 @@ export class ServiseMoreServise {
       formatImage = extname(servise_image.originalname).toLowerCase();
     }
 
-
+    
     if (
       allowedImageFormats.includes(formatImage) ||
       formatImage === 'Not image'
-
-    ) {
-
+      
+      ) {
+        
         let shor_history_img = findServise.image_link;
-
+        
         if (formatImage !== 'Not image') {
+          // console.log(shor_history_img, '1' );
           await deleteFileCloud(shor_history_img);
           shor_history_img = await googleCloud(servise_image);
+          // console.log(shor_history_img , '2');
         }
 
 
-        const updated = await ServiseEntity.update(id, {
+        await ServiseEntity.update(id, {
           title: body.title || findServise.title,
           title_ru : body.title_ru || findServise.title_ru ,
           title_en : body.title_en || findServise.title_en,
           image_link : shor_history_img
-        });
+        }).catch((e ) => { 
+          console.log(e)
+          
+          throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+        }); ;
 
-        return updated;
+       
 
     } else {
       throw new HttpException(
@@ -128,7 +140,9 @@ export class ServiseMoreServise {
   }
 
   async remove(id: string) {
-    const findServise = await ServiseEntity.findOneBy({ id }).catch(() => {
+    const findServise = await ServiseEntity.findOneBy({ id }).catch((e) => { 
+      console.log(e);
+      
       throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
 
@@ -146,6 +160,9 @@ export class ServiseMoreServise {
     }
 
 
-    await ShortHistoryEntity.delete({ id });
+    await ServiseEntity.delete({ id }).catch((e ) => { 
+      console.log(e)
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    }); ;;
   }
 }
