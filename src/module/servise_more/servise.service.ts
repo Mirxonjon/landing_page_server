@@ -79,7 +79,6 @@ export class ServiseMoreServise {
     body: UpdateServiseDto ,
     servise_image: Express.Multer.File,
   ) {
-    console.log('okkk');
     
     const findServise = await ServiseEntity.findOne({
       where: { id  },
@@ -89,7 +88,6 @@ export class ServiseMoreServise {
       throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
 
-    console.log(findServise);
     
     if (!findServise) {
       throw new HttpException('Book not found', HttpStatus.NOT_FOUND);
@@ -98,7 +96,7 @@ export class ServiseMoreServise {
     let formatImage: string = 'Not image';
 
     if (servise_image) {
-      formatImage = extname(servise_image.originalname).toLowerCase();
+      formatImage = extname(servise_image?.originalname).toLowerCase();
     }
 
     
@@ -108,13 +106,11 @@ export class ServiseMoreServise {
       
       ) {
         
-        let shor_history_img = findServise.image_link;
+        let shor_history_img = findServise?.image_link;
         
         if (formatImage !== 'Not image') {
-          // console.log(shor_history_img, '1' );
           await deleteFileCloud(shor_history_img);
           shor_history_img = await googleCloud(servise_image);
-          // console.log(shor_history_img , '2');
         }
 
 
@@ -124,7 +120,6 @@ export class ServiseMoreServise {
           title_en : body.title_en || findServise.title_en,
           image_link : shor_history_img
         }).catch((e ) => { 
-          console.log(e)
           
           throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
         }); ;
@@ -141,7 +136,6 @@ export class ServiseMoreServise {
 
   async remove(id: string) {
     const findServise = await ServiseEntity.findOneBy({ id }).catch((e) => { 
-      console.log(e);
       
       throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
