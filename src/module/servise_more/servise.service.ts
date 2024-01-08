@@ -109,7 +109,7 @@ export class ServiseMoreServise {
         let shor_history_img = findServise?.image_link;
         
         if (formatImage !== 'Not image') {
-          await deleteFileCloud(shor_history_img);
+          // await deleteFileCloud(shor_history_img);
           shor_history_img = await googleCloud(servise_image);
         }
 
@@ -144,14 +144,14 @@ export class ServiseMoreServise {
       throw new HttpException('Servise not found', HttpStatus.NOT_FOUND);
     }
 
-    const imageLink = await deleteFileCloud(findServise?.image_link);
+    // const imageLink = await deleteFileCloud(findServise?.image_link);
 
-    if (!imageLink) {
-      throw new HttpException(
-        'The Servise image  was not deleted',
-        HttpStatus.NOT_FOUND,
-      );
-    }
+    // if (!imageLink) {
+    //   throw new HttpException(
+    //     'The Servise image  was not deleted',
+    //     HttpStatus.NOT_FOUND,
+    //   );
+    // }
 
 
     await ServiseEntity.delete({ id }).catch((e ) => { 
