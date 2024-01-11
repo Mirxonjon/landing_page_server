@@ -9,7 +9,7 @@ import {
   } from 'typeorm';
 
   @Entity()
-  export class PartnerEntity extends BaseEntity {
+  export class PartnerCommentEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
   
@@ -18,10 +18,15 @@ import {
       nullable:true
     })
     image_link: string;
+
+    @Column({
+        type: 'character varying',
+        nullable:true
+      })
+    camment: string;
   
     @CreateDateColumn({ name: 'created_at' })
     create_data: Date;
-  
 
   }
   

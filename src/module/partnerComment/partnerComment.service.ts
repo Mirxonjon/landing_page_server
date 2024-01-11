@@ -1,18 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreatePartnerDto } from './dto/create_history.dto';
+import { CreatePartnerDto } from './dto/create_partnerComment.dto';
 import { extname } from 'path';
 import { deleteFileCloud, googleCloudAsync } from 'src/utils/google_cloud';
-import { UpdatePartnerDto } from './dto/update_history.dto';
+import { UpdatePartnerDto } from './dto/update_partnerComment.dto';
 import {
   allowedImageFormats,
 } from 'src/utils/videoAndImageFormat';
 import { PartnerEntity } from 'src/entities/partner.entity';
+import { PartnerCommentEntity } from 'src/entities/parnerComment.entity';
 
 @Injectable()
-export class PartnerServise {
+export class PartnerCommentServise {
 
   async findOne(id: string  ) {
-    const findPartner = await PartnerEntity.findOneBy({ id }).catch((e) => {
+    const findPartner = await PartnerCommentEntity.findOneBy({ id }).catch((e) => {
       throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
     if (!findPartner) {
@@ -24,7 +25,7 @@ export class PartnerServise {
  
 
   async findAll() {
-    const findPartners = await PartnerEntity.find({
+    const findPartners = await PartnerCommentEntity.find({
       order:{
         create_data :'desc'
       }
@@ -38,7 +39,7 @@ export class PartnerServise {
   }
 
   async create(
-    // body: CreatePartnerDto,
+    body: CreatePartnerDto,
     image: Express.Multer.File,
   ) {
     if (!image) {
@@ -55,11 +56,11 @@ export class PartnerServise {
       
         const linkImage :string = await googleCloudAsync(image);
         
-        await PartnerEntity.createQueryBuilder()
+        await PartnerCommentEntity.createQueryBuilder()
           .insert()
-          .into(PartnerEntity)
+          .into(PartnerCommentEntity)
           .values({
-            // camment: body.camment,
+            camment: body.camment,
             image_link : linkImage
           })
           .execute()
@@ -77,10 +78,10 @@ export class PartnerServise {
 
   async update(
     id: string,
-    // body: UpdatePartnerDto ,
+    body: UpdatePartnerDto ,
     image: Express.Multer.File,
   ) {
-    const findPartner = await PartnerEntity.findOne({
+    const findPartner = await PartnerCommentEntity.findOne({
       where: { id },
     });
 
@@ -108,8 +109,8 @@ export class PartnerServise {
         }
 
 
-        const updated = await PartnerEntity.update(id, {
-          // camment: body.camment || findPartner.camment,
+        const updated = await PartnerCommentEntity.update(id, {
+          camment: body.camment || findPartner.camment,
           image_link :shor_history_img
         });
 
@@ -124,7 +125,7 @@ export class PartnerServise {
   }
 
   async remove(id: string) {
-    const findPartner = await PartnerEntity.findOneBy({ id }).catch(() => {
+    const findPartner = await PartnerCommentEntity  .findOneBy({ id }).catch(() => {
       throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
 
@@ -142,6 +143,6 @@ export class PartnerServise {
     }
 
 
-    await PartnerEntity.delete({ id });
+    await PartnerCommentEntity.delete({ id });
   }
 }

@@ -11,6 +11,7 @@ import { ApplicationModule } from './module/application/application.module';
 import { ServiseModule } from './module/servise_more/servise.module';
 import { FrendlyTeamModule } from './module/our_friendly_team/our_friendly_team.module';
 import { PartnerModule } from './module/partner/partner.module';
+import { PartnerCommentModule } from './module/partnerComment/partnerComment.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { PartnerModule } from './module/partner/partner.module';
     ApplicationModule,
     ServiseModule,
     FrendlyTeamModule,
-    PartnerModule
+    PartnerModule,
+    PartnerCommentModule
   ],
   controllers: [],
   providers: [],

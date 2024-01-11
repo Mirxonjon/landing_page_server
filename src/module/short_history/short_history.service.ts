@@ -15,6 +15,7 @@ import { ServiseEntity } from 'src/entities/servise.entity';
 import { FrendlyTeamEntity } from 'src/entities/our_friendly_team_imeges.entity';
 import { PartnerEntity } from 'src/entities/partner.entity';
 import { title } from 'process';
+import { PartnerCommentEntity } from 'src/entities/parnerComment.entity';
 
 @Injectable()
 export class ShortHistoryServise {
@@ -84,7 +85,11 @@ export class ShortHistoryServise {
         create_data :'desc'
       }
     });
-
+    const findPartnerComments = await PartnerCommentEntity.find({
+      order:{
+        create_data :'desc'
+      }
+    });
 
     return {
       histories : findHistors,
@@ -93,7 +98,8 @@ export class ShortHistoryServise {
       // Application : findAplication,
       Servise: findServise,
       TeamImages: findImages,
-      partners: findPartners
+      partners: findPartners,
+      PartnerComments : findPartnerComments
 
     }
   }
@@ -156,6 +162,12 @@ export class ShortHistoryServise {
       }
     });
 
+    const findPartnerComments = await PartnerCommentEntity.find({
+      order:{
+        create_data :'desc'
+      }
+    });
+
 
     return {
       histories : findHistors,
@@ -164,7 +176,9 @@ export class ShortHistoryServise {
       // Application : findAplication,
       Servise: findServises,
       TeamImages: findImages,
-      partners: findPartners
+      partners: findPartners,
+      PartnerComments : findPartnerComments
+
 
     }
   }
@@ -226,6 +240,12 @@ export class ShortHistoryServise {
       }
     });
 
+    const findPartnerComments = await PartnerCommentEntity.find({
+      order:{
+        create_data :'desc'
+      }
+    });
+
 
     return {
       histories : findHistors,
@@ -234,7 +254,9 @@ export class ShortHistoryServise {
       // Application : findAplication,
       Servise: findServises,
       TeamImages: findImages,
-      partners: findPartners
+      partners: findPartners,
+      PartnerComments : findPartnerComments
+
 
     }
   }

@@ -27,17 +27,17 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { PartnerServise } from './partner.service';
+import { PartnerCommentServise } from './partnerComment.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-// import { CreatePartnerDto } from './dto/create_history.dto';
-import { UpdatePartnerDto } from './dto/update_history.dto';
+import { CreatePartnerDto } from './dto/create_partnerComment.dto';
+import { UpdatePartnerDto } from './dto/update_partnerComment.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
-@Controller('Partner')
-@ApiTags('Partner')
+@Controller('PartnerComment')
+@ApiTags('Partner Comment')
 @ApiBearerAuth('JWT-auth')
-export class PartnerController {
-  readonly #_service: PartnerServise;
-  constructor(service: PartnerServise) {
+export class PartnerCommentController {
+  readonly #_service: PartnerCommentServise;
+  constructor(service: PartnerCommentServise) {
     this.#_service = service;
   }
 
@@ -68,9 +68,14 @@ export class PartnerController {
     schema: {
       type: 'object',
       required: [
+        'camment',
         'image'
       ],
       properties: {
+        camment: {
+          type: 'string',
+          default: 'Yangi yil',
+        },
         image: {
           type: 'string',
           format: 'binary',
@@ -89,11 +94,11 @@ export class PartnerController {
   async create(
     @UploadedFiles()
     files: { image?: Express.Multer.File; },
-    // @Body() createPartnerDto: CreatePartnerDto,
+    @Body() createPartnerDto: CreatePartnerDto,
   ) {
     
     return await this.#_service.create(
-      // createPartnerDto,
+      createPartnerDto,
       files.image[0],
     );
   }
@@ -105,6 +110,10 @@ export class PartnerController {
     schema: {
       type: 'object',
       properties: {
+        camment: {
+          type: 'string',
+          default: 'Yangi yil',
+        },
         image: {
           type: 'string',
           format: 'binary',
@@ -121,13 +130,13 @@ export class PartnerController {
   )
   async update(
     @Param('id') id: string,
-    // @Body() updatePartnerDto: UpdatePartnerDto,
+    @Body() updatePartnerDto: UpdatePartnerDto,
     @UploadedFiles()
     file: { image?: Express.Multer.File; },
   ) {
     await this.#_service.update(
       id,
-      // updatePartnerDto,
+      updatePartnerDto,
       file?.image ? file?.image[0] : null,
     );
   }
