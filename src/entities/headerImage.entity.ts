@@ -19,6 +19,12 @@ import {
     })
     haeder_image_link: string;
 
+    @Column({
+      type: 'character varying',
+      nullable:true
+    })
+    haeder_image_mobile_link: string;
+
     @CreateDateColumn({ name: 'created_at' })
     create_data: Date;
   

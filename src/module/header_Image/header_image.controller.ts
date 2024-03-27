@@ -65,11 +65,14 @@ export class HeaderImageController {
     schema: {
       type: 'object',
       required: [
-        'header_image'
+        'header_image' , 'header_image_mobile'
       ],
       properties: {
-  
         header_image: {
+          type: 'string',
+          format: 'binary',
+        },
+        header_image_mobile: {
           type: 'string',
           format: 'binary',
         },
@@ -82,15 +85,18 @@ export class HeaderImageController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'header_image' }]),
+    FileFieldsInterceptor([{ name: 'header_image' }, {name: 'header_image_mobile'}]),
   )
   async create(
     @UploadedFiles()
-    files: { header_image?: Express.Multer.File; },
+    files: { header_image?: Express.Multer.File;  header_image_mobile?: Express.Multer.File} ,
   ) {
+    console.log(files);
+    
     
     return await this.#_service.create(
       files.header_image[0],
+      files.header_image_mobile[0],
     );
   }
 
@@ -106,6 +112,10 @@ export class HeaderImageController {
           type: 'string',
           format: 'binary',
         },
+        header_image_mobile: {
+          type: 'string',
+          format: 'binary',
+        },
       },
     },
   })
@@ -114,16 +124,17 @@ export class HeaderImageController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'header_image' }]),
+    FileFieldsInterceptor([{ name: 'header_image' } ,  {name: 'header_image_mobile'}]),
   )
   async update(
     @Param('id') id: string,
     @UploadedFiles()
-    file: { header_image?: Express.Multer.File; },
+    file: { header_image?: Express.Multer.File;  header_image_mobile?: Express.Multer.File },
   ) {
     await this.#_service.update(
       id,
       file?.header_image ? file?.header_image[0] : null,
+      file?.header_image_mobile ? file?.header_image_mobile[0] : null,
     );
   }
 

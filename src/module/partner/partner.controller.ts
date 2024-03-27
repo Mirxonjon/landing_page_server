@@ -29,7 +29,6 @@ import {
 } from '@nestjs/swagger';
 import { PartnerServise } from './partner.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-// import { CreatePartnerDto } from './dto/create_history.dto';
 import { UpdatePartnerDto } from './dto/update_history.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
 @Controller('Partner')
@@ -48,8 +47,6 @@ export class PartnerController {
   async findOne(@Param('id') id: string ) {
     return await this.#_service.findOne(id);
   }
-
-  
 
   @Get('/all')
   @ApiBadRequestResponse()

@@ -36,6 +36,7 @@ export class HeaderImageServise {
 
   async create(
     header_image: Express.Multer.File,
+    header_image_mobile: Express.Multer.File,
   ) {
     if (!header_image) {
       throw new HttpException(
@@ -43,24 +44,42 @@ export class HeaderImageServise {
         HttpStatus.NO_CONTENT,
       );
     }
+    if (!header_image_mobile) {
+      throw new HttpException(
+        'header_image_mobile should not be empty',
+        HttpStatus.NO_CONTENT,
+      );
+    }
     
 
     const formatImage = extname(header_image?.originalname).toLowerCase();
+    const formatImageMobile = extname(header_image_mobile?.originalname).toLowerCase();
+
     if (allowedImageFormats.includes(formatImage)) {
       
-        const linkImage :string = await googleCloudAsync(header_image);
-        
+      if(allowedImageFormats.includes(formatImageMobile)) {
+          const linkImage :string = await googleCloudAsync(header_image);
+          const linkImageMobile :string = await googleCloudAsync(header_image_mobile);
+          console.log(linkImage, linkImageMobile);
+          
+
         await HeaderImageEntity.createQueryBuilder()
           .insert()
           .into(HeaderImageEntity)
           .values({
-            haeder_image_link : linkImage
+            haeder_image_link : linkImage,
+            haeder_image_mobile_link : linkImageMobile
           })
           .execute()
           .catch((e) => { 
-            
             throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
           });
+        } else {
+          throw new HttpException(
+            'image should  be format jpg , png , jpeg , pnmj , svg',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
     } else {
       throw new HttpException(
         'image should  be format jpg , png , jpeg , pnmj , svg',
@@ -72,6 +91,7 @@ export class HeaderImageServise {
   async update(
     id: string,
     header_image: Express.Multer.File,
+    header_image_mobile: Express.Multer.File,
   ) {
     const findHeaderImage = await HeaderImageEntity.findOne({
       where: { id },
@@ -81,31 +101,74 @@ export class HeaderImageServise {
       throw new HttpException('Header Image not found', HttpStatus.NOT_FOUND);
     }
 
+    // if (!header_image_mobile) {
+    //   throw new HttpException(
+    //     'header_image_mobile should not be empty',
+    //     HttpStatus.NO_CONTENT,
+    //   );
+    // }
+    let formatImage: string = 'Not image';
+    let formatImageMobile: string = 'Not image mobile';
 
-      const formatImage = extname(header_image.originalname).toLowerCase();
 
+      // const formatImage = extname(header_image?.originalname).toLowerCase();
+      // const formatImageMobile = extname(header_image_mobile?.originalname).toLowerCase();
+      if (header_image) {
+        formatImage = extname(header_image.originalname).toLowerCase();
+      }
+      if (header_image_mobile) {
+        formatImageMobile = extname(header_image_mobile.originalname).toLowerCase();
+      }
 
     if (
-      allowedImageFormats.includes(formatImage) 
+      allowedImageFormats.includes(formatImage)  ||
+      formatImage === 'Not image'
     ) {
+      if(allowedImageFormats.includes(formatImageMobile) ||
+      formatImageMobile === 'Not image mobile') {
 
+        // let tactic_img = findVideo.tactic_img;
+        // let video_link = findVideo.video_link;
         let shor_history_img = findHeaderImage.haeder_image_link;
+        let shor_history_mobile_img = findHeaderImage.haeder_image_mobile_link;
 
+        // await deleteFileCloud(shor_history_img);
+        // shor_history_img =await googleCloudAsync(header_image);
 
+        if (formatImage !== 'Not image') {
           await deleteFileCloud(shor_history_img);
-          shor_history_img =await googleCloudAsync(header_image);
+          shor_history_img = await googleCloudAsync(header_image);
+        }
+
+        if (formatImageMobile !== 'Not image mobile') {
+          await deleteFileCloud(shor_history_mobile_img);
+          shor_history_mobile_img = await googleCloudAsync(header_image_mobile);
+        }
+
+        console.log(shor_history_img , shor_history_mobile_img);
+        
 
 
 
-        const updated = await HeaderImageEntity.update(id, {
-          haeder_image_link :shor_history_img
-        });
+      const updated = await HeaderImageEntity.update(id, {
+        haeder_image_link :shor_history_img ,
+        haeder_image_mobile_link : shor_history_mobile_img
+      }).catch(e => {console.log(e)
+      });
 
-        return updated;
+      return updated;
+      } else {
+        throw new HttpException(
+          'Image should be in the format jpg, png, jpeg, pnmj, svg',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+     
 
     } else {
       throw new HttpException(
-        'Image should be in the format jpg, png, jpeg, pnmj, svg',
+        'Image should be in the format jpg, png, jpeg, pnmj, svg, 1',
         HttpStatus.BAD_REQUEST,
       );
     }
