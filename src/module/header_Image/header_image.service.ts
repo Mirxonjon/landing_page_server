@@ -110,6 +110,7 @@ export class HeaderImageServise {
     let formatImage: string = 'Not image';
     let formatImageMobile: string = 'Not image mobile';
 
+// console.log(formatImageMobile);
 
       // const formatImage = extname(header_image?.originalname).toLowerCase();
       // const formatImageMobile = extname(header_image_mobile?.originalname).toLowerCase();
@@ -119,6 +120,7 @@ export class HeaderImageServise {
       if (header_image_mobile) {
         formatImageMobile = extname(header_image_mobile.originalname).toLowerCase();
       }
+      // console.log(formatImageMobile);
 
     if (
       allowedImageFormats.includes(formatImage)  ||
@@ -129,25 +131,32 @@ export class HeaderImageServise {
 
         // let tactic_img = findVideo.tactic_img;
         // let video_link = findVideo.video_link;
-        let shor_history_img = findHeaderImage.haeder_image_link;
-        let shor_history_mobile_img = findHeaderImage.haeder_image_mobile_link;
+        let shor_history_img = findHeaderImage?.haeder_image_link;
+        let shor_history_mobile_img: any = findHeaderImage?.haeder_image_mobile_link;
+        // console.log(shor_history_mobile_img);
 
         // await deleteFileCloud(shor_history_img);
         // shor_history_img =await googleCloudAsync(header_image);
 
         if (formatImage !== 'Not image') {
-          await deleteFileCloud(shor_history_img);
+          // await deleteFileCloud(shor_history_img);
           shor_history_img = await googleCloudAsync(header_image);
         }
 
         if (formatImageMobile !== 'Not image mobile') {
-          await deleteFileCloud(shor_history_mobile_img);
-          shor_history_mobile_img = await googleCloudAsync(header_image_mobile);
+          // await deleteFileCloud(shor_history_mobile_img);
+        // console.log(shor_history_mobile_img, 'alrr');
+        // console.log(header_image_mobile, 'alrr2');
+
+          shor_history_mobile_img = await googleCloudAsync(header_image_mobile).catch(e => console.log(e));
+        // console.log(shor_history_mobile_img);
+
         }
 
-        console.log(shor_history_img , shor_history_mobile_img);
+        // console.log(shor_history_img , shor_history_mobile_img);
         
 
+        console.log(shor_history_mobile_img);
 
 
       const updated = await HeaderImageEntity.update(id, {
