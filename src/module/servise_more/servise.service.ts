@@ -60,6 +60,10 @@ export class ServiseMoreServise {
             title: body.title,
             title_ru : body.title_ru,
             title_en : body.title_en,
+            text : body.text,
+            text_ru : body.text_ru,
+            text_en : body.text_en,
+            price : body.price,
             image_link : linkImage
           })
           .execute()
@@ -118,6 +122,10 @@ export class ServiseMoreServise {
           title: body.title || findServise.title,
           title_ru : body.title_ru || findServise.title_ru ,
           title_en : body.title_en || findServise.title_en,
+          text : body.text || findServise.text,
+          text_ru : body.text_ru  || findServise.text_ru,
+          text_en : body.text_en || findServise.text_en,
+          price : body.price || findServise.price, 
           image_link : shor_history_img
         }).catch((e ) => { 
           

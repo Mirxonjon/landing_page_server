@@ -15,4 +15,7 @@ export class UpdateApplicationDto {
   
   @IsString()
   comment: string;
+
+  text: object;
+
 }

@@ -20,4 +20,7 @@ export class CreateApplicationDto {
   @IsString()
   @IsNotEmpty()
   comment: string;
+
+  text: object;
+
 }

@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateApplicationDto } from './dto/create_application.dto';
 import { UpdateApplicationDto } from './dto/update_application.dto';
-import { StatisticEntity } from 'src/entities/statistic.entity';
 import { ApplicationEntity } from 'src/entities/application.entity';
 
 @Injectable()
@@ -46,6 +45,7 @@ export class ApplicationServise {
             name: body.name,
             number :body.number,
             comment: body.comment,
+            text :body.text
           })
           .execute()
           .catch((e) => { 
@@ -73,6 +73,7 @@ export class ApplicationServise {
           name: body.name || findAplication.name,
           number :body.number || findAplication.number,
           comment: body.comment || findAplication.comment,
+          text: body.text || findAplication.text
         });
 
         return updated;

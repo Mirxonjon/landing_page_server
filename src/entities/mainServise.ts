@@ -3,14 +3,17 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
+import { MainServiseCategoryEntity } from './mainserviseCategory';
 
   @Entity()
-  export class ServiseEntity extends BaseEntity {
+  export class MainServiseEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    
+
     @Column({
         type: 'character varying',
         nullable:true
@@ -22,6 +25,7 @@ import {
       nullable:true
     })
     title_ru: string;
+    
 
   @Column({
     type: 'character varying',
@@ -30,38 +34,30 @@ import {
     title_en: string;
 
     @Column({
-      type: 'character varying',
-      nullable:true
-    })
+        type: 'character varying',
+        nullable:true
+      })
     image_link: string;
 
     @Column({
       type: 'character varying',
       nullable:true
     })
-    price: string;
-
-
-    @Column({
-      type: 'character varying',
-      nullable:true
-    })
-    text: string;
+    type: string;
 
     @Column({
-      type: 'character varying',
-      nullable:true
+        type: 'jsonb',
+        nullable: true,
     })
-    text_ru: string;
+    text: JSON;
+    
 
-    @Column({
-      type: 'character varying',
-      nullable:true
-    })
-    text_en: string;
+  @ManyToOne(() => MainServiseCategoryEntity, (servise) => servise.servises)
+  categoryServise: MainServiseCategoryEntity[]
   
     @CreateDateColumn({ name: 'created_at' })
     create_data: Date;
   
 
   }
+  

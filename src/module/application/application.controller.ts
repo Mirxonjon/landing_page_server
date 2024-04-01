@@ -89,6 +89,13 @@ export class ApplicationController {
           type: 'string',
           default: 'Yaxshi comment',
         },
+        text: {
+          type: 'object',
+          default:  {
+            text: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+            text1: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+          },
+        },
       },
     },
   })
@@ -129,6 +136,13 @@ export class ApplicationController {
         comment: {
           type: 'string',
           default: 'Yaxshi comment',
+        },
+        text: {
+          type: 'object',
+          default:  {
+            text: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+            text1: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+          },
         },
       },
     },

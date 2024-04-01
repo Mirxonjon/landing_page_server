@@ -1,6 +1,9 @@
 import { IsString, MaxLength } from 'class-validator';
 
-export class UpdateServiseDto {
+export class UpdatemainServiseDto {
+  @IsString()
+  categoryServise :string
+
   @IsString()
   title: string;
 
@@ -11,16 +14,8 @@ export class UpdateServiseDto {
   title_en: string;
 
   @IsString()
-  text: string;
+  type: string;
 
+  text: object;
 
-  @IsString()
-  text_ru: string;
-
-
-  @IsString()
-  text_en: string;
-
-  @IsString()
-  price: string;
 }

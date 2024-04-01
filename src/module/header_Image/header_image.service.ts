@@ -101,19 +101,11 @@ export class HeaderImageServise {
       throw new HttpException('Header Image not found', HttpStatus.NOT_FOUND);
     }
 
-    // if (!header_image_mobile) {
-    //   throw new HttpException(
-    //     'header_image_mobile should not be empty',
-    //     HttpStatus.NO_CONTENT,
-    //   );
-    // }
+
     let formatImage: string = 'Not image';
     let formatImageMobile: string = 'Not image mobile';
 
-// console.log(formatImageMobile);
 
-      // const formatImage = extname(header_image?.originalname).toLowerCase();
-      // const formatImageMobile = extname(header_image_mobile?.originalname).toLowerCase();
       if (header_image) {
         formatImage = extname(header_image.originalname).toLowerCase();
       }
@@ -129,34 +121,20 @@ export class HeaderImageServise {
       if(allowedImageFormats.includes(formatImageMobile) ||
       formatImageMobile === 'Not image mobile') {
 
-        // let tactic_img = findVideo.tactic_img;
-        // let video_link = findVideo.video_link;
         let shor_history_img = findHeaderImage?.haeder_image_link;
         let shor_history_mobile_img: any = findHeaderImage?.haeder_image_mobile_link;
-        // console.log(shor_history_mobile_img);
 
-        // await deleteFileCloud(shor_history_img);
-        // shor_history_img =await googleCloudAsync(header_image);
 
         if (formatImage !== 'Not image') {
-          // await deleteFileCloud(shor_history_img);
           shor_history_img = await googleCloudAsync(header_image);
         }
 
         if (formatImageMobile !== 'Not image mobile') {
-          // await deleteFileCloud(shor_history_mobile_img);
-        // console.log(shor_history_mobile_img, 'alrr');
-        // console.log(header_image_mobile, 'alrr2');
+
 
           shor_history_mobile_img = await googleCloudAsync(header_image_mobile).catch(e => console.log(e));
-        // console.log(shor_history_mobile_img);
 
         }
-
-        // console.log(shor_history_img , shor_history_mobile_img);
-        
-
-        console.log(shor_history_mobile_img);
 
 
       const updated = await HeaderImageEntity.update(id, {

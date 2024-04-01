@@ -27,17 +27,17 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { ServiseMoreServise } from './servise.service';
+import { PartnerServise } from './partner.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { CreateServiseDto } from './dto/create_servise.dto';
-import { UpdateServiseDto } from './dto/update_servise.dto';
+import {  UpdatemainServiseDto } from './dto/update_history.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
-@Controller('Servise')
-@ApiTags('Servise')
+import { CreatemainServiseDto } from './dto/create_history.dto';
+@Controller('Partner')
+@ApiTags('Partner')
 @ApiBearerAuth('JWT-auth')
-export class ServiseController {
-  readonly #_service: ServiseMoreServise;
-  constructor(service: ServiseMoreServise) {
+export class PartnerController {
+  readonly #_service: PartnerServise;
+  constructor(service: PartnerServise) {
     this.#_service = service;
   }
 
@@ -46,11 +46,8 @@ export class ServiseController {
   @ApiNotFoundResponse()
   @ApiOkResponse()
   async findOne(@Param('id') id: string ) {
-    
     return await this.#_service.findOne(id);
   }
-
-  
 
   @Get('/all')
   @ApiBadRequestResponse()
@@ -59,6 +56,7 @@ export class ServiseController {
   async findAll() {
     return await this.#_service.findAll();
   }
+
 
 
   @UseGuards(jwtGuard)
@@ -70,42 +68,33 @@ export class ServiseController {
       required: [
         'title',
         'title_ru',
-        'title_en',
-        'text',
-        'text_ru',
-        'text_en',
-        'servise_image'
-      ],
+        'title_en'
+      ],  
       properties: {
         title: {
           type: 'string',
-          default: 'Yangi yil',
+          format: 'binary',
         },
         title_ru: {
           type: 'string',
-          default: 'Новый год',
+          format: 'binary',
         },
         title_en: {
           type: 'string',
-          default: 'New Year',
+          format: 'binary',
+        },
+        type: {
+          type: 'string',
+          format: 'binary',
         },
         text: {
-          type: 'string',
-          default: 'Yangi yil',
+          type: 'object',
+          default:  {
+            text: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+            text1: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+          },
         },
-        text_ru: {
-          type: 'string',
-          default: 'Новый год',
-        },
-        text_en: {
-          type: 'string',
-          default: 'New Year',
-        },
-        price: {
-          type: 'string',
-          default: 'New Year',
-        },
-        servise_image: {
+        image: {
           type: 'string',
           format: 'binary',
         },
@@ -118,16 +107,17 @@ export class ServiseController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'servise_image' }]),
+    FileFieldsInterceptor([{ name: 'image' }]),
   )
   async create(
     @UploadedFiles()
-    files: { servise_image?: Express.Multer.File; },
-    @Body() createServiseDto: CreateServiseDto,
+    files: { image?: Express.Multer.File; },
+    @Body() createmainServiseDto: CreatemainServiseDto,
   ) {
+    
     return await this.#_service.create(
-      createServiseDto,
-      files.servise_image[0],
+      files.image[0],
+      createmainServiseDto,
     );
   }
 
@@ -140,33 +130,28 @@ export class ServiseController {
       properties: {
         title: {
           type: 'string',
-          default: 'Yangi yil',
+          format: 'binary',
         },
         title_ru: {
           type: 'string',
-          default: 'Новый год',
+          format: 'binary',
         },
         title_en: {
           type: 'string',
-          default: 'New Year',
+          format: 'binary',
+        },
+        type: {
+          type: 'string',
+          format: 'binary',
         },
         text: {
-          type: 'string',
-          default: 'Yangi yil',
+          type: 'object',
+          default:  {
+            text: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+            text1: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
+          },
         },
-        text_ru: {
-          type: 'string',
-          default: 'Новый год',
-        },
-        text_en: {
-          type: 'string',
-          default: 'New Year',
-        },
-        price: {
-          type: 'string',
-          default: 'New Year',
-        },
-        servise_image: {
+        image: {
           type: 'string',
           format: 'binary',
         },
@@ -178,18 +163,18 @@ export class ServiseController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'servise_image' }]),
+    FileFieldsInterceptor([{ name: 'image' }]),
   )
   async update(
     @Param('id') id: string,
-    @Body() updateServiseDto: UpdateServiseDto,
+    @Body() updatemainServiseDto: UpdatemainServiseDto,
     @UploadedFiles()
-    file: { servise_image?: Express.Multer.File; },
+    file: { image?: Express.Multer.File; },
   ) {
     await this.#_service.update(
       id,
-      updateServiseDto,
-      file?.servise_image ? file?.servise_image[0] : null,
+      file?.image ? file?.image[0] : null,
+      updatemainServiseDto,
     );
   }
 
