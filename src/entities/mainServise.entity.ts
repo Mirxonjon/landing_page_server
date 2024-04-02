@@ -7,7 +7,7 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
-import { MainServiseCategoryEntity } from './mainserviseCategory';
+import { MainServiseCategoryEntity } from './mainServiseCategory.entity';
 
   @Entity()
   export class MainServiseEntity extends BaseEntity {

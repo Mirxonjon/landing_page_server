@@ -7,8 +7,8 @@ import {
   allowedImageFormats,
 } from 'src/utils/videoAndImageFormat';
 import { PartnerEntity } from 'src/entities/partner.entity';
-import { MainServiseEntity } from 'src/entities/mainServise';
-import { MainServiseCategoryEntity } from 'src/entities/mainServiseCategory';
+import { MainServiseEntity } from 'src/entities/mainServise.entity';
+import { MainServiseCategoryEntity } from 'src/entities/mainServiseCategory.entity';
 
 @Injectable()
 export class PartnerServise {
