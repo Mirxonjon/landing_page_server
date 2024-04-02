@@ -12,6 +12,8 @@ import { ServiseModule } from './module/servise_more/servise.module';
 import { FrendlyTeamModule } from './module/our_friendly_team/our_friendly_team.module';
 import { PartnerModule } from './module/partner/partner.module';
 import { PartnerCommentModule } from './module/partnerComment/partnerComment.module';
+import { mainServiseCategoryModule } from './module/mainServiseCategory/mainServiseCategory.module';
+import { mainServiseModule } from './module/mainServise/partner.module';
 
 @Module({
   imports: [
@@ -25,7 +27,9 @@ import { PartnerCommentModule } from './module/partnerComment/partnerComment.mod
     ServiseModule,
     FrendlyTeamModule,
     PartnerModule,
-    PartnerCommentModule
+    PartnerCommentModule,
+    mainServiseModule,
+    mainServiseCategoryModule
   ],
   controllers: [],
   providers: [],

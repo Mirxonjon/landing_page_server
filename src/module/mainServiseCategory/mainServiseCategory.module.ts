@@ -7,4 +7,4 @@ import { mainServiseCategoryServise } from './mainServiseCategory.service';
   controllers: [mainServiseCategoryController],
   providers: [mainServiseCategoryServise],
 })
-export class PartnerModule {}
+export class mainServiseCategoryModule {}
