@@ -68,15 +68,15 @@ export class mainServiseCategoryController {
       properties: {
         title: {
           type: 'string',
-          format: 'binary',
+          default: 'Yangi yil',
         },
         title_ru: {
           type: 'string',
-          format: 'binary',
+          default: 'Новый год',
         },
         title_en: {
           type: 'string',
-          format: 'binary',
+          default: 'New Year',
         },
       },
     },
@@ -109,15 +109,15 @@ export class mainServiseCategoryController {
       properties: {
         title: {
           type: 'string',
-          format: 'binary',
+          default: 'Yangi yil',
         },
         title_ru: {
           type: 'string',
-          format: 'binary',
+          default: 'Новый год',
         },
         title_en: {
           type: 'string',
-          format: 'binary',
+          default: 'New Year',
         },
       },
     },

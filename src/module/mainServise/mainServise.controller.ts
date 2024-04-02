@@ -73,19 +73,19 @@ export class MainServiseController {
       properties: {
         title: {
           type: 'string',
-          format: 'binary',
+          default: 'Yangi yil',
         },
         title_ru: {
           type: 'string',
-          format: 'binary',
+          default: 'Новый год',
         },
         title_en: {
           type: 'string',
-          format: 'binary',
+          default: 'New Year',
         },
         type: {
           type: 'string',
-          format: 'binary',
+          default : 'banner'
         },
         text: {
           type: 'object',
@@ -98,6 +98,10 @@ export class MainServiseController {
           type: 'string',
           format: 'binary',
         },
+        icon: {
+          type: 'string',
+          format: 'binary',
+        },
       },
     },
   })
@@ -107,16 +111,17 @@ export class MainServiseController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'image' }]),
+    FileFieldsInterceptor([{ name: 'image' } ,{name: 'icon'}]),
   )
   async create(
     @UploadedFiles()
-    files: { image?: Express.Multer.File; },
+    files: { image?: Express.Multer.File; icon?: Express.Multer.File },
     @Body() createmainServiseDto: CreatemainServiseDto,
   ) {
     
     return await this.#_service.create(
       files.image[0],
+      files.icon[0],
       createmainServiseDto,
     );
   }
@@ -130,19 +135,19 @@ export class MainServiseController {
       properties: {
         title: {
           type: 'string',
-          format: 'binary',
+          default: 'Yangi yil',
         },
         title_ru: {
           type: 'string',
-          format: 'binary',
+          default: 'Новый год',
         },
         title_en: {
           type: 'string',
-          format: 'binary',
+          default: 'New Year',
         },
         type: {
           type: 'string',
-          format: 'binary',
+          default : 'banner'
         },
         text: {
           type: 'object',
@@ -155,6 +160,10 @@ export class MainServiseController {
           type: 'string',
           format: 'binary',
         },
+        icon: {
+          type: 'string',
+          format: 'binary',
+        },
       },
     },
   })
@@ -163,17 +172,18 @@ export class MainServiseController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'image' }]),
+    FileFieldsInterceptor([{ name: 'image' },{name: 'icon'}]),
   )
   async update(
     @Param('id') id: string,
     @Body() updatemainServiseDto: UpdatemainServiseDto,
     @UploadedFiles()
-    file: { image?: Express.Multer.File; },
+    file: { image?: Express.Multer.File; icon?: Express.Multer.File },
   ) {
     await this.#_service.update(
       id,
       file?.image ? file?.image[0] : null,
+      file?.icon ? file?.icon[0] : null,
       updatemainServiseDto,
     );
   }

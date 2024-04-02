@@ -41,6 +41,7 @@ export class MainServiseServise {
 
   async create(
     image: Express.Multer.File,
+    icon : Express.Multer.File,
     body: CreatemainServiseDto,
   ) {
 
@@ -54,9 +55,13 @@ export class MainServiseServise {
 
     
     let formatImage: string = 'Not image';
+    let formatIcon: string = 'Not icon';
 
     if (image) {
       formatImage = extname(image.originalname).toLowerCase();
+    }
+    if (icon) {
+      formatIcon = extname(icon.originalname).toLowerCase();
     }
 
 
@@ -67,6 +72,8 @@ export class MainServiseServise {
 
       if(formatImage !== 'Not image') {
         const linkImage :string = await googleCloudAsync(image);
+
+        const linkIcon :string = await googleCloudAsync(icon) ;
         
 
         await MainServiseEntity.createQueryBuilder()
@@ -77,14 +84,14 @@ export class MainServiseServise {
           title_ru : body.title_ru ,
           title_en : body.title_en ,
           image_link : linkImage,
+          icon_link : linkIcon || 'null',
           type : body.type,
           text : body.text ,
           categoryServise : findCategory  as any
         })
         .execute()
         .catch((e) => { 
-          
-          throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
+          throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
         });
       } else {
         await MainServiseEntity.createQueryBuilder()
@@ -94,6 +101,7 @@ export class MainServiseServise {
           title : body.title ,
           title_ru : body.title_ru ,
           title_en : body.title_en ,
+          icon_link : null ,
           image_link : null,
           type : body.type,
           text : body.text ,
@@ -120,6 +128,7 @@ export class MainServiseServise {
   async update(
     id: string,
     image: Express.Multer.File,
+    icon: Express.Multer.File,
     body: UpdatemainServiseDto ,
   ) {
 
@@ -130,6 +139,8 @@ export class MainServiseServise {
     if (!findMainServise) {
       throw new HttpException('service not found', HttpStatus.NOT_FOUND);
     }
+
+    
 
     if(findMainServise.categoryServise || body.categoryServise) {
 
@@ -143,10 +154,15 @@ export class MainServiseServise {
 
     
     let formatImage: string = 'Not image';
+    let formatIcon: string = 'Not icon';
 
     if (image) {
       formatImage = extname(image.originalname).toLowerCase();
     }
+    if (icon) {
+      formatIcon = extname(icon.originalname).toLowerCase();
+    }
+
 
 
     if (
@@ -157,6 +173,8 @@ export class MainServiseServise {
       if(formatImage !== 'Not image') {
         const linkImage :string = await googleCloudAsync(image);
         
+        const linkIcon :string = await googleCloudAsync(icon) ;
+
 
         await MainServiseEntity.createQueryBuilder()
         .insert()
@@ -166,6 +184,7 @@ export class MainServiseServise {
           title_ru : body.title_ru ,
           title_en : body.title_en ,
           image_link : linkImage,
+          icon_link : linkIcon || 'null',
           type : body.type,
           text : body.text ,
           categoryServise : findCategory  as any

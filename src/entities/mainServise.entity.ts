@@ -43,6 +43,12 @@ import { MainServiseCategoryEntity } from './mainServiseCategory.entity';
       type: 'character varying',
       nullable:true
     })
+  icon_link : string;
+
+    @Column({
+      type: 'character varying',
+      nullable:true
+    })
     type: string;
 
     @Column({
