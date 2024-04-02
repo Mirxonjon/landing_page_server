@@ -13,7 +13,7 @@ import { FrendlyTeamModule } from './module/our_friendly_team/our_friendly_team.
 import { PartnerModule } from './module/partner/partner.module';
 import { PartnerCommentModule } from './module/partnerComment/partnerComment.module';
 import { mainServiseCategoryModule } from './module/mainServiseCategory/mainServiseCategory.module';
-import { mainServiseModule } from './module/mainServise/partner.module';
+import { MainServiseModule } from './module/mainServise/mainServise.module';
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import { mainServiseModule } from './module/mainServise/partner.module';
     FrendlyTeamModule,
     PartnerModule,
     PartnerCommentModule,
-    mainServiseModule,
+    MainServiseModule,
     mainServiseCategoryModule
   ],
   controllers: [],

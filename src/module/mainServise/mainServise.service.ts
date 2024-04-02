@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable, Body } from '@nestjs/common';
-import { CreatemainServiseDto } from './dto/create_history.dto';
+import { CreatemainServiseDto } from './dto/create_mainServise.dto';
 import { extname } from 'path';
 import { deleteFileCloud, googleCloudAsync } from 'src/utils/google_cloud';
-import { UpdatemainServiseDto } from './dto/update_history.dto';
+import { UpdatemainServiseDto } from './dto/update_mainServise.dto';
 import {
   allowedImageFormats,
 } from 'src/utils/videoAndImageFormat';
@@ -11,7 +11,7 @@ import { MainServiseEntity } from 'src/entities/mainServise.entity';
 import { MainServiseCategoryEntity } from 'src/entities/mainServiseCategory.entity';
 
 @Injectable()
-export class PartnerServise {
+export class MainServiseServise {
 
   async findOne(id: string  ) {
     const findMainServise = await MainServiseEntity.findOneBy({ id }).catch((e) => {

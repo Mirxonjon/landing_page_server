@@ -27,17 +27,17 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { PartnerServise } from './partner.service';
+import { MainServiseServise } from './mainServise.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import {  UpdatemainServiseDto } from './dto/update_history.dto';
+import {  UpdatemainServiseDto } from './dto/update_mainServise.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
-import { CreatemainServiseDto } from './dto/create_history.dto';
-@Controller('Partner')
-@ApiTags('Partner')
+import { CreatemainServiseDto } from './dto/create_mainServise.dto';
+@Controller('mainServise')
+@ApiTags('main Servise')
 @ApiBearerAuth('JWT-auth')
-export class PartnerController {
-  readonly #_service: PartnerServise;
-  constructor(service: PartnerServise) {
+export class MainServiseController {
+  readonly #_service: MainServiseServise;
+  constructor(service: MainServiseServise) {
     this.#_service = service;
   }
 

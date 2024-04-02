@@ -29,8 +29,8 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { UpdatePartnerDto } from './dto/update_mainServiseCategory.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
 import { CreatePartnerDto } from './dto/create_mainServiseCategory.dto';
-@Controller('Partner')
-@ApiTags('Partner')
+@Controller('mainServiseCategory')
+@ApiTags('main Servise Category')
 @ApiBearerAuth('JWT-auth')
 export class mainServiseCategoryController {
   readonly #_service: mainServiseCategoryServise;
