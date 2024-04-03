@@ -6,17 +6,6 @@ export class CreatemainServiseDto {
   @IsNotEmpty()
   categoryServise :string
   
-  @IsString()
-  @IsNotEmpty()
-  title: string;
-
-  @IsString()
-  @IsNotEmpty()
-  title_ru: string;
-
-  @IsString()
-  @IsNotEmpty()
-  title_en: string;
 
   @IsString()
   @IsNotEmpty()

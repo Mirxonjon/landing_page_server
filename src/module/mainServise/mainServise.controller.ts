@@ -73,18 +73,6 @@ export class MainServiseController {
           type: 'string',
           default: 'ID',
         },
-        title: {
-          type: 'string',
-          default: 'Yangi yil',
-        },
-        title_ru: {
-          type: 'string',
-          default: 'Новый год',
-        },
-        title_en: {
-          type: 'string',
-          default: 'New Year',
-        },
         type: {
           type: 'string',
           default : 'banner'
@@ -139,18 +127,6 @@ export class MainServiseController {
         categoryServise: {
           type: 'string',
           default: 'ID',
-        },
-        title: {
-          type: 'string',
-          default: 'Yangi yil',
-        },
-        title_ru: {
-          type: 'string',
-          default: 'Новый год',
-        },
-        title_en: {
-          type: 'string',
-          default: 'New Year',
         },
         type: {
           type: 'string',

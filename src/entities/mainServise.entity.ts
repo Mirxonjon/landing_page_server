@@ -14,24 +14,7 @@ import { MainServiseCategoryEntity } from './mainServiseCategory.entity';
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({
-        type: 'character varying',
-        nullable:true
-      })
-    title: string;
 
-    @Column({
-      type: 'character varying',
-      nullable:true
-    })
-    title_ru: string;
-    
-
-  @Column({
-    type: 'character varying',
-    nullable:true
-  })
-    title_en: string;
 
     @Column({
         type: 'character varying',

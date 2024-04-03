@@ -6,7 +6,6 @@ import { UpdatemainServiseDto } from './dto/update_mainServise.dto';
 import {
   allowedImageFormats,
 } from 'src/utils/videoAndImageFormat';
-import { PartnerEntity } from 'src/entities/partner.entity';
 import { MainServiseEntity } from 'src/entities/mainServise.entity';
 import { MainServiseCategoryEntity } from 'src/entities/mainServiseCategory.entity';
 
@@ -82,9 +81,6 @@ export class MainServiseServise {
           .insert()
           .into(MainServiseEntity)
           .values({
-            title : body.title ,
-            title_ru : body.title_ru ,
-            title_en : body.title_en ,
             image_link : linkImage,
             icon_link : linkIcon ,
             type : body.type,
@@ -100,9 +96,6 @@ export class MainServiseServise {
           .insert()
           .into(MainServiseEntity)
           .values({
-            title : body.title ,
-            title_ru : body.title_ru ,
-            title_en : body.title_en ,
             image_link : linkImage,
             icon_link : null,
             type : body.type,
@@ -123,9 +116,6 @@ export class MainServiseServise {
         .insert()
         .into(MainServiseEntity)
         .values({
-          title : body.title ,
-          title_ru : body.title_ru ,
-          title_en : body.title_en ,
           icon_link : null ,
           image_link : null,
           type : body.type,
@@ -207,9 +197,6 @@ export class MainServiseServise {
           .insert()
           .into(MainServiseEntity)
           .values({
-            title : body.title || findMainServise.title ,
-            title_ru : body.title_ru  || findMainServise.title_ru,
-            title_en : body.title_en || findMainServise.title_en,
             image_link : linkImage,
             icon_link : linkIcon ,
             type : body.type || findMainServise.type,
@@ -225,9 +212,6 @@ export class MainServiseServise {
           .insert()
           .into(MainServiseEntity)
           .values({
-            title : body.title || findMainServise.title ,
-            title_ru : body.title_ru  || findMainServise.title_ru,
-            title_en : body.title_en  || findMainServise.title_en,
             image_link : linkImage,
             icon_link : findMainServise.icon_link,
             type : body.type || findMainServise.type,
@@ -250,9 +234,6 @@ export class MainServiseServise {
           .insert()
           .into(MainServiseEntity)
           .values({
-            title : body.title  || findMainServise.title,
-            title_ru : body.title_ru  || findMainServise.title_ru,
-            title_en : body.title_en  || findMainServise.title_en ,
             image_link : findMainServise.image_link,
             icon_link : linkIcon ,
             type : body.type || findMainServise.type,
@@ -269,9 +250,6 @@ export class MainServiseServise {
           .insert()
           .into(MainServiseEntity)
           .values({
-            title : body.title || findMainServise.title ,
-            title_ru : body.title_ru  || findMainServise.title_ru,
-            title_en : body.title_en || findMainServise.title_en,
             image_link : findMainServise.image_link,
             icon_link :  findMainServise.icon_link ,
             type : body.type || findMainServise.type,
