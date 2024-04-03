@@ -68,9 +68,14 @@ export class MainServiseController {
       required: [
         'title',
         'title_ru',
-        'title_en'
+        'title_en',
+        'categoryServise'
       ],  
       properties: {
+        categoryServise: {
+          type: 'string',
+          default: 'ID',
+        },
         title: {
           type: 'string',
           default: 'Yangi yil',
@@ -119,9 +124,10 @@ export class MainServiseController {
     @Body() createmainServiseDto: CreatemainServiseDto,
   ) {
     
+    
     return await this.#_service.create(
-      files.image[0],
-      files.icon[0],
+      files?.image ? files?.image[0] : null,
+      files?.icon ? files?.icon[0] : null,
       createmainServiseDto,
     );
   }
@@ -133,6 +139,10 @@ export class MainServiseController {
     schema: {
       type: 'object',
       properties: {
+        categoryServise: {
+          type: 'string',
+          default: 'ID',
+        },
         title: {
           type: 'string',
           default: 'Yangi yil',

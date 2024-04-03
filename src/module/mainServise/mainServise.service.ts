@@ -44,6 +44,8 @@ export class MainServiseServise {
     icon : Express.Multer.File,
     body: CreatemainServiseDto,
   ) {
+    // console.log(image ,icon , body);
+    
 
     const findCategory = await MainServiseCategoryEntity.findOne({
       where: { id : body.categoryServise },
@@ -73,26 +75,49 @@ export class MainServiseServise {
       if(formatImage !== 'Not image') {
         const linkImage :string = await googleCloudAsync(image);
 
-        const linkIcon :string = await googleCloudAsync(icon) ;
+        if(icon) {
+          const linkIcon :string = await googleCloudAsync(icon) ;
+
+          await MainServiseEntity.createQueryBuilder()
+          .insert()
+          .into(MainServiseEntity)
+          .values({
+            title : body.title ,
+            title_ru : body.title_ru ,
+            title_en : body.title_en ,
+            image_link : linkImage,
+            icon_link : linkIcon ,
+            type : body.type,
+            text : body.text ,
+            categoryServise : findCategory  as any
+          })
+          .execute()
+          .catch((e) => { 
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+          });
+        } else {
+          await MainServiseEntity.createQueryBuilder()
+          .insert()
+          .into(MainServiseEntity)
+          .values({
+            title : body.title ,
+            title_ru : body.title_ru ,
+            title_en : body.title_en ,
+            image_link : linkImage,
+            icon_link : null,
+            type : body.type,
+            text : body.text ,
+            categoryServise : findCategory  as any
+          })
+          .execute()
+          .catch((e) => { 
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+          });
+        }
+
         
 
-        await MainServiseEntity.createQueryBuilder()
-        .insert()
-        .into(MainServiseEntity)
-        .values({
-          title : body.title ,
-          title_ru : body.title_ru ,
-          title_en : body.title_en ,
-          image_link : linkImage,
-          icon_link : linkIcon || 'null',
-          type : body.type,
-          text : body.text ,
-          categoryServise : findCategory  as any
-        })
-        .execute()
-        .catch((e) => { 
-          throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-        });
+
       } else {
         await MainServiseEntity.createQueryBuilder()
         .insert()
@@ -172,46 +197,94 @@ export class MainServiseServise {
 
       if(formatImage !== 'Not image') {
         const linkImage :string = await googleCloudAsync(image);
-        
-        const linkIcon :string = await googleCloudAsync(icon) ;
 
+        // const linkIcon :string = await googleCloudAsync(icon) ;
 
-        await MainServiseEntity.createQueryBuilder()
-        .insert()
-        .into(MainServiseEntity)
-        .values({
-          title : body.title ,
-          title_ru : body.title_ru ,
-          title_en : body.title_en ,
-          image_link : linkImage,
-          icon_link : linkIcon || 'null',
-          type : body.type,
-          text : body.text ,
-          categoryServise : findCategory  as any
-        })
-        .execute()
-        .catch((e) => { 
-          
-          throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
-        });
+        if(icon) {
+          const linkIcon :string = await googleCloudAsync(icon) ;
+
+          await MainServiseEntity.createQueryBuilder()
+          .insert()
+          .into(MainServiseEntity)
+          .values({
+            title : body.title || findMainServise.title ,
+            title_ru : body.title_ru  || findMainServise.title_ru,
+            title_en : body.title_en || findMainServise.title_en,
+            image_link : linkImage,
+            icon_link : linkIcon ,
+            type : body.type || findMainServise.type,
+            text : body.text || findMainServise.text ,
+            categoryServise : body.categoryServise || findCategory.id as any
+          })
+          .execute()
+          .catch((e) => { 
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+          });
+        } else {
+          await MainServiseEntity.createQueryBuilder()
+          .insert()
+          .into(MainServiseEntity)
+          .values({
+            title : body.title || findMainServise.title ,
+            title_ru : body.title_ru  || findMainServise.title_ru,
+            title_en : body.title_en  || findMainServise.title_en,
+            image_link : linkImage,
+            icon_link : findMainServise.icon_link,
+            type : body.type || findMainServise.type,
+            text : body.text || findMainServise.text ,
+            categoryServise : body.categoryServise || findCategory.id as any
+
+          })
+          .execute()
+          .catch((e) => { 
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+          });
+        }
+
       } else {
-        await MainServiseEntity.createQueryBuilder()
-        .insert()
-        .into(MainServiseEntity)
-        .values({
-          title : body.title ,
-          title_ru : body.title_ru ,
-          title_en : body.title_en ,
-          image_link : null,
-          type : body.type,
-          text : body.text ,
-          categoryServise : findCategory  as any
-        })
-        .execute()
-        .catch((e) => { 
-          
-          throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
-        });
+
+        if(icon) {
+          const linkIcon :string = await googleCloudAsync(icon) ;
+
+          await MainServiseEntity.createQueryBuilder()
+          .insert()
+          .into(MainServiseEntity)
+          .values({
+            title : body.title  || findMainServise.title,
+            title_ru : body.title_ru  || findMainServise.title_ru,
+            title_en : body.title_en  || findMainServise.title_en ,
+            image_link : findMainServise.image_link,
+            icon_link : linkIcon ,
+            type : body.type || findMainServise.type,
+            text : body.text || findMainServise.text ,
+            categoryServise : body.categoryServise || findCategory.id as any
+
+          })
+          .execute()
+          .catch((e) => { 
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+          });
+        } else {
+          await MainServiseEntity.createQueryBuilder()
+          .insert()
+          .into(MainServiseEntity)
+          .values({
+            title : body.title || findMainServise.title ,
+            title_ru : body.title_ru  || findMainServise.title_ru,
+            title_en : body.title_en || findMainServise.title_en,
+            image_link : findMainServise.image_link,
+            icon_link :  findMainServise.icon_link ,
+            type : body.type || findMainServise.type,
+            text : body.text  || findMainServise.text,
+            categoryServise : body.categoryServise || findCategory.id as any
+
+          })
+          .execute()
+          .catch((e) => { 
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+          });
+        }
+
       }
 
       
