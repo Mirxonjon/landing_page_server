@@ -13,7 +13,19 @@ import { MainServiseCategoryEntity } from 'src/entities/mainServiseCategory.enti
 export class mainServiseCategoryServise {
 
   async findOne(id: string  ) {
-    const findCategory = await MainServiseCategoryEntity.findOneBy({ id }).catch((e) => {
+    const findCategory = await MainServiseCategoryEntity.findOne({ 
+      where :{
+        id 
+      } ,
+      order : {
+        servises : {
+          create_data : 'desc'
+        }
+      },
+      relations : {
+        servises : true
+      }
+    }).catch((e) => {
       throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     });
     if (!findCategory) {

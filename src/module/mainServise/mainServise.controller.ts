@@ -66,9 +66,6 @@ export class MainServiseController {
     schema: {
       type: 'object',
       required: [
-        'title',
-        'title_ru',
-        'title_en',
         'categoryServise'
       ],  
       properties: {
