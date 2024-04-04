@@ -193,25 +193,18 @@ export class MainServiseServise {
         if(icon) {
           const linkIcon :string = await googleCloudAsync(icon) ;
 
-          await MainServiseEntity.createQueryBuilder()
-          .insert()
-          .into(MainServiseEntity)
-          .values({
+          await MainServiseEntity.update(id,{
             image_link : linkImage,
             icon_link : linkIcon ,
             type : body.type || findMainServise.type,
             text : JSON.parse(body.text) || findMainServise.text ,
             categoryServise : body.categoryServise || findCategory.id as any
           })
-          .execute()
           .catch((e) => { 
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
           });
         } else {
-          await MainServiseEntity.createQueryBuilder()
-          .insert()
-          .into(MainServiseEntity)
-          .values({
+          await MainServiseEntity.update(id,{
             image_link : linkImage,
             icon_link : findMainServise.icon_link,
             type : body.type || findMainServise.type,
@@ -219,7 +212,6 @@ export class MainServiseServise {
             categoryServise : body.categoryServise || findCategory.id as any
 
           })
-          .execute()
           .catch((e) => { 
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
           });
@@ -230,10 +222,7 @@ export class MainServiseServise {
         if(icon) {
           const linkIcon :string = await googleCloudAsync(icon) ;
 
-          await MainServiseEntity.createQueryBuilder()
-          .insert()
-          .into(MainServiseEntity)
-          .values({
+          await MainServiseEntity.update(id,{
             image_link : findMainServise.image_link,
             icon_link : linkIcon ,
             type : body.type || findMainServise.type,
@@ -241,23 +230,17 @@ export class MainServiseServise {
             categoryServise : body.categoryServise || findCategory.id as any
 
           })
-          .execute()
           .catch((e) => { 
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
           });
         } else {
-          await MainServiseEntity.createQueryBuilder()
-          .insert()
-          .into(MainServiseEntity)
-          .values({
+          await MainServiseEntity.update(id,{
             image_link : findMainServise.image_link,
             icon_link :  findMainServise.icon_link ,
             type : body.type || findMainServise.type,
             text : JSON.parse(body.text)  || findMainServise.text,
             categoryServise : body.categoryServise || findCategory.id as any
-
           })
-          .execute()
           .catch((e) => { 
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
           });
