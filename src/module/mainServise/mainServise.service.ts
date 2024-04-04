@@ -43,7 +43,7 @@ export class MainServiseServise {
     icon : Express.Multer.File,
     body: CreatemainServiseDto,
   ) {
-    // console.log(image ,icon , body);
+    console.log( body);
     
 
     const findCategory = await MainServiseCategoryEntity.findOne({
@@ -84,7 +84,7 @@ export class MainServiseServise {
             image_link : linkImage,
             icon_link : linkIcon ,
             type : body.type,
-            text : body.text ,
+            text : JSON.parse(body.text) ,
             categoryServise : findCategory  as any
           })
           .execute()
@@ -99,7 +99,7 @@ export class MainServiseServise {
             image_link : linkImage,
             icon_link : null,
             type : body.type,
-            text : body.text ,
+            text : JSON.parse(body.text),
             categoryServise : findCategory  as any
           })
           .execute()
@@ -119,7 +119,7 @@ export class MainServiseServise {
           icon_link : null ,
           image_link : null,
           type : body.type,
-          text : body.text ,
+          text : JSON.parse(body.text),
           categoryServise : findCategory  as any
         })
         .execute()
@@ -200,7 +200,7 @@ export class MainServiseServise {
             image_link : linkImage,
             icon_link : linkIcon ,
             type : body.type || findMainServise.type,
-            text : body.text || findMainServise.text ,
+            text : JSON.parse(body.text) || findMainServise.text ,
             categoryServise : body.categoryServise || findCategory.id as any
           })
           .execute()
@@ -215,7 +215,7 @@ export class MainServiseServise {
             image_link : linkImage,
             icon_link : findMainServise.icon_link,
             type : body.type || findMainServise.type,
-            text : body.text || findMainServise.text ,
+            text : JSON.parse(body.text)|| findMainServise.text ,
             categoryServise : body.categoryServise || findCategory.id as any
 
           })
@@ -237,7 +237,7 @@ export class MainServiseServise {
             image_link : findMainServise.image_link,
             icon_link : linkIcon ,
             type : body.type || findMainServise.type,
-            text : body.text || findMainServise.text ,
+            text : JSON.parse(body.text) || findMainServise.text ,
             categoryServise : body.categoryServise || findCategory.id as any
 
           })
@@ -253,7 +253,7 @@ export class MainServiseServise {
             image_link : findMainServise.image_link,
             icon_link :  findMainServise.icon_link ,
             type : body.type || findMainServise.type,
-            text : body.text  || findMainServise.text,
+            text : JSON.parse(body.text)  || findMainServise.text,
             categoryServise : body.categoryServise || findCategory.id as any
 
           })

@@ -1,4 +1,4 @@
-import { IsString, MaxLength } from 'class-validator';
+import { IsJSON, IsString, MaxLength } from 'class-validator';
 
 export class UpdatemainServiseDto {
   @IsString()
@@ -8,6 +8,9 @@ export class UpdatemainServiseDto {
   @IsString()
   type: string;
 
-  text: object;
+
+  @IsString()
+  @IsJSON()
+  text: string; 
 
 }

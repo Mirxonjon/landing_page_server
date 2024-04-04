@@ -1,6 +1,8 @@
-import { IsString, IsNotEmpty, MaxLength } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, MaxLength, IsJSON } from 'class-validator';
 
 export class CreatemainServiseDto {
+
 
   @IsString()
   @IsNotEmpty()
@@ -11,6 +13,8 @@ export class CreatemainServiseDto {
   @IsNotEmpty()
   type: string;
 
-  text: object;
+  @IsString()
+  @IsJSON()
+  text: string; 
 
 }

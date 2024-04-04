@@ -32,6 +32,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {  UpdatemainServiseDto } from './dto/update_mainServise.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
 import { CreatemainServiseDto } from './dto/create_mainServise.dto';
+import { json } from 'stream/consumers';
 @Controller('mainServise')
 @ApiTags('main Servise')
 @ApiBearerAuth('JWT-auth')
@@ -82,7 +83,8 @@ export class MainServiseController {
           default:  {
             text: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
             text1: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
-          },
+          } ,
+          
         },
         image: {
           type: 'string',
@@ -108,7 +110,7 @@ export class MainServiseController {
     files: { image?: Express.Multer.File; icon?: Express.Multer.File },
     @Body() createmainServiseDto: CreatemainServiseDto,
   ) {
-    
+    // console.log(createmainServiseDto  , JSON.parse(createmainServiseDto.text),  'ooooo');
     
     return await this.#_service.create(
       files?.image ? files?.image[0] : null,
@@ -133,11 +135,12 @@ export class MainServiseController {
           default : 'banner'
         },
         text: {
-          type: 'object',
+          type: 'json',
           default:  {
             text: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
             text1: [{ value: '<html> 1</html>' }, { value: '<html> 1</html>' }],
           },
+          format : 'json'
         },
         image: {
           type: 'string',
