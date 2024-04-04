@@ -269,16 +269,16 @@ export class MainServiseServise {
     if (!findMainServise) {
       throw new HttpException('Partner not found', HttpStatus.NOT_FOUND);
     }
-    if(findMainServise.image_link) {
-      const imageLink = await deleteFileCloud(findMainServise?.image_link);
+    // if(findMainServise.image_link) {
+    //   const imageLink = await deleteFileCloud(findMainServise?.image_link);
 
-      if (!imageLink) {
-        throw new HttpException(
-          'The parner image  was not deleted',
-          HttpStatus.NOT_FOUND,
-        );
-      }
-    }
+    //   if (!imageLink) {
+    //     throw new HttpException(
+    //       'The parner image  was not deleted',
+    //       HttpStatus.NOT_FOUND,
+    //     );
+    //   }
+    // }
 
     await MainServiseEntity.delete({ id });
   }
