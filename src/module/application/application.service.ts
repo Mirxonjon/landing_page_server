@@ -35,22 +35,38 @@ export class ApplicationServise {
   async create(
     body: CreateApplicationDto ,
   ) {
+    const findAplication = await ApplicationEntity.find({
+      order:{
+        create_data :'desc'
+      }
+    });
 
+    const aplicationNumber =  findAplication[0]?.application_Number?.split('AA')[1] ?`AA${+findAplication[0]?.application_Number?.split('AA')[1] + 1}` : 'AA1'
+      if(aplicationNumber) {
         await ApplicationEntity.createQueryBuilder()
-          .insert()
-          .into(ApplicationEntity)
-          .values({
-            type_of_service : body.type_of_service,
-            organization_name: body.organization_name,
-            name: body.name,
-            number :body.number,
-            comment: body.comment,
-            text :body.text
-          })
-          .execute()
-          .catch((e) => { 
-            throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
-          });
+        .insert()
+        .into(ApplicationEntity)
+        .values({
+          type_of_service : body.type_of_service,
+          organization_name: body.organization_name,
+          name: body.name,
+          number :body.number,
+          comment: body.comment,
+          text :body.text,
+          application_Number: aplicationNumber
+        })
+        .execute()
+        .catch((e) => { 
+          throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
+        });
+
+        return {
+          aplicationNumber
+        }
+      }else {
+      throw new HttpException('Aplication number Error', HttpStatus.NOT_FOUND);
+      }
+  
 
   }
 

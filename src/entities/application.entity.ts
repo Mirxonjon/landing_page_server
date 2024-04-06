@@ -12,6 +12,12 @@ import {
   export class ApplicationEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column({
+      type: 'character varying',
+      nullable:true
+    })
+  application_Number: string;
   
     @Column({
         type: 'character varying',
