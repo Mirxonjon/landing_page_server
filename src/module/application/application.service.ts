@@ -70,6 +70,23 @@ export class ApplicationServise {
 
   }
 
+  async findsort(type: string) {
+    const findAplication = await ApplicationEntity.find({
+      where: {
+        type_of_service: type == 'Все' ? null : type
+      },
+      order:{
+        create_data :'desc'
+      }
+    });
+
+    if (!findAplication) {
+      throw new HttpException('Aplication not found', HttpStatus.NOT_FOUND);
+    }
+
+    return findAplication;
+  }
+
   async update(
     id: string,
     body: UpdateApplicationDto ,

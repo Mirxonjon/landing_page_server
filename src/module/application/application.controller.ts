@@ -9,6 +9,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -52,6 +53,20 @@ export class ApplicationController {
   async findAll() {
     return await this.#_service.findAll();
   }
+
+  
+  @Get('/sort')
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @ApiOkResponse()
+  @ApiOperation({ description : 'Bitta operatorni ish grafikini olish uchun Api. Login ga operator dasturga kirish raqami kiritiladi'})
+  async findsort(
+    @Query('type_of_service') type_of_service: string,
+  ) {
+    return await this.#_service.findsort(type_of_service);
+  }
+
+
 
 
 
