@@ -54,6 +54,7 @@ export class FormDataServise {
           })
           .execute()
           .catch((e) => { 
+console.log(e);
 
             throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
           });

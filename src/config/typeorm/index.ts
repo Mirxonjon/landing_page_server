@@ -11,6 +11,7 @@ import { FrendlyTeamEntity } from 'src/entities/our_friendly_team_imeges.entity'
 import { PartnerCommentEntity } from 'src/entities/parnerComment.entity';
 import { MainServiseCategoryEntity } from 'src/entities/mainServiseCategory.entity';
 import { MainServiseEntity } from 'src/entities/mainServise.entity';
+import { FormDataEntity } from 'src/entities/formData.entity';
 dotenv.config();
 
 export const connectDb: TypeOrmModuleOptions = {
@@ -20,7 +21,7 @@ export const connectDb: TypeOrmModuleOptions = {
   password: String(process.env.DB_PASSWORD),
   username: process.env.DB_USERNAME,
   database: process.env.DATABASE,
-  entities: [ AdminEntity , ApplicationEntity , HeaderImageEntity ,PartnerCommentEntity , PartnerEntity , ShortHistoryEntity ,StatisticEntity , ServiseEntity,FrendlyTeamEntity ,MainServiseCategoryEntity,MainServiseEntity ],
+  entities: [ AdminEntity , ApplicationEntity , HeaderImageEntity ,PartnerCommentEntity , PartnerEntity , ShortHistoryEntity ,StatisticEntity , ServiseEntity,FrendlyTeamEntity ,MainServiseCategoryEntity,MainServiseEntity, FormDataEntity ],
   autoLoadEntities: true,
   synchronize: true,
 };

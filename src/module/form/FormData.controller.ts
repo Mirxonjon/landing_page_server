@@ -82,14 +82,14 @@ export class FormDataController {
       },
     },
   })
-  @ApiConsumes('multipart/form-data')
+  // @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Attendance Punch In' })
   @ApiCreatedResponse()
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async create(
-    @UploadedFiles()
-    files: { image?: Express.Multer.File; },
+    // @UploadedFiles()
+    // files: { image?: Express.Multer.File; },
     @Body() createFormDataDto: CreateFormDataDto,
   ) {
     
@@ -124,8 +124,8 @@ export class FormDataController {
   async update(
     @Param('id') id: string,
     @Body() updateFormDataDto: UpdateFormDataDto,
-    @UploadedFiles()
-    file: { image?: Express.Multer.File; },
+    // @UploadedFiles()
+    // file: { image?: Express.Multer.File; },
   ) {
     await this.#_service.update(
       id,
