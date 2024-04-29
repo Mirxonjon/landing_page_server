@@ -32,8 +32,8 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { UpdateFormDataDto } from './dto/update_FormData.dto';
 import { jwtGuard } from '../auth/guards/jwt.guard';
 import { CreateFormDataDto } from './dto/create_FormData.dto';
-@Controller('Partner')
-@ApiTags('Partner')
+@Controller('Form')
+@ApiTags('Form')
 @ApiBearerAuth('JWT-auth')
 export class FormDataController {
   readonly #_service: FormDataServise;
