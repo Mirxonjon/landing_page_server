@@ -14,6 +14,7 @@ import { PartnerModule } from './module/partner/partner.module';
 import { PartnerCommentModule } from './module/partnerComment/partnerComment.module';
 import { mainServiseCategoryModule } from './module/mainServiseCategory/mainServiseCategory.module';
 import { MainServiseModule } from './module/mainServise/mainServise.module';
+import { FormDataModule } from './module/form/FormData.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { MainServiseModule } from './module/mainServise/mainServise.module';
     PartnerModule,
     PartnerCommentModule,
     MainServiseModule,
-    mainServiseCategoryModule
+    mainServiseCategoryModule,
+    FormDataModule
   ],
   controllers: [],
   providers: [],
