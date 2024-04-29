@@ -3,7 +3,7 @@ import { Storage } from '@google-cloud/storage';
 import { extname, join, resolve } from 'path';
 const { google } = require('googleapis');
 
-const keyFilenameSheet = resolve(process.cwd(), 'src', 'utils', 'google.json');
+const keyFilenameSheet = resolve(process.cwd(), 'src', 'utils', 'key1.json');
 
 const auth = new google.auth.GoogleAuth({
   keyFile: keyFilenameSheet,  // Path to your service account key file.
