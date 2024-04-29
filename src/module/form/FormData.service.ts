@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateFormDataDto } from './dto/create_FormData.dto';
 import { extname } from 'path';
-import { deleteFileCloud, googleCloudAsync } from 'src/utils/google_cloud';
+import { deleteFileCloud, googleCloudAsync, writeToSheet } from 'src/utils/google_cloud';
 import { UpdateFormDataDto } from './dto/update_FormData.dto';
 import {
   allowedImageFormats,
@@ -58,6 +58,8 @@ console.log(e);
 
             throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
           });
+
+         await writeToSheet([ [body.org_name , body.number]])
 
   }
 

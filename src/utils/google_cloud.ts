@@ -1,6 +1,14 @@
 import { v4 } from 'uuid';
 import { Storage } from '@google-cloud/storage';
 import { extname, join, resolve } from 'path';
+const { google } = require('googleapis');
+
+const keyFilenameSheet = resolve(process.cwd(), 'src', 'utils', 'google.json');
+
+const auth = new google.auth.GoogleAuth({
+  keyFile: keyFilenameSheet,  // Path to your service account key file.
+  scopes: ['https://www.googleapis.com/auth/spreadsheets']  // Scope for Google Sheets API.
+});
 
 const projectId = 'telecom-398714';
 const keyFilename = resolve(process.cwd(), 'src', 'utils', 'key.json');
@@ -59,4 +67,22 @@ export const deleteFileCloud = async (imageLink: string) => {
   });
   return imageLink;
 };
+
+export const  writeToSheet = async (values) =>  {
+  const sheets = google.sheets({ version: 'v4', auth });  // Creates a Sheets API client instance.
+  const spreadsheetId = '1u9i8GHKHqkj99AeDN79VQi53PA840VGN93WzeivEfsA';  // The ID of the spreadsheet.
+  const range = 'info!B2';  // The range in the sheet where data will be written.
+  const valueInputOption = 'USER_ENTERED';  // How input data should be interpreted.
+
+  const resource = { values };  // The data to be written.
+
+  try {
+      const res = await sheets.spreadsheets.values.update({
+          spreadsheetId, range, valueInputOption, resource
+      })
+      return res;  // Returns the response from the Sheets API.
+  } catch (error) {
+      console.error('error', error);  // Logs errors.
+  }
+}
 
