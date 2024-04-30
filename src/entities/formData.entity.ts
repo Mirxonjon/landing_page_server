@@ -7,6 +7,7 @@ export class FormDataEntity extends BaseEntity {
 
   @Column({
     type: 'character varying',
+    nullable:true
   })
   full_name: string;
 
