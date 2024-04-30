@@ -66,10 +66,15 @@ export class FormDataController {
     schema: {
       type: 'object',
       required: [
+        'full_name',
         'org_name',
         'number'
       ],
       properties: {
+        full_name: {
+          type: 'string',
+          default: 'Eshmatov eshamat Eshmatovich',
+        },
         org_name: {
           type: 'string',
           default: 'Eshmatov eshamat Eshmatovich',
@@ -77,19 +82,15 @@ export class FormDataController {
         number: {
           type: 'string',
           default: '+998933843484',
-
         },
       },
     },
   })
-  // @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Attendance Punch In' })
   @ApiCreatedResponse()
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async create(
-    // @UploadedFiles()
-    // files: { image?: Express.Multer.File; },
     @Body() createFormDataDto: CreateFormDataDto,
   ) {
     

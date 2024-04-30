@@ -8,6 +8,11 @@ export class FormDataEntity extends BaseEntity {
   @Column({
     type: 'character varying',
   })
+  full_name: string;
+
+  @Column({
+    type: 'character varying',
+  })
   org_name: string;
 
   @Column({

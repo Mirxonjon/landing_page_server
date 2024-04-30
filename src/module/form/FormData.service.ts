@@ -41,26 +41,20 @@ export class FormDataServise {
   async create(
     body: CreateFormDataDto,
   ) {
-
-
-      
-
         await FormDataEntity.createQueryBuilder()
           .insert()
           .into(FormDataEntity)
           .values({
+            full_name: body.full_name,
             org_name : body.org_name,
             number : body.number
           })
           .execute()
-          .catch((e) => { 
-console.log(e);
-
+          .catch((e) => {
             throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
           });
 
-         await writeToSheet([ [body.org_name , body.number]])
-
+         await writeToSheet([ [body.full_name, body.org_name , body.number]])
   }
 
   async update(
