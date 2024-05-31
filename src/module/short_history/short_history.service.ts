@@ -77,7 +77,7 @@ export class ShortHistoryServise {
       }
     });
 
-    const findServises = findServise.map(e => ({ title: e.title_ru, image_link: e.image_link ,price :e.price , paragraph : e.text }))
+    const findServises = findServise.map(e => ({ title: e.title, image_link: e.image_link ,price :e.price , paragraph : e.text }))
 
     const findImages = await FrendlyTeamEntity.find({
       order:{
@@ -236,7 +236,7 @@ export class ShortHistoryServise {
     });
 
     // const findServises = findServise.map(e => ({ title: e.title_en, image_link: e.image_link }))
-  const findServises = findServise.map(e => ({ title: e.title_ru, image_link: e.image_link ,price :e.price , paragraph : e.text_en }))
+  const findServises = findServise.map(e => ({ title: e.title_en, image_link: e.image_link ,price :e.price , paragraph : e.text_en }))
 
 
 
