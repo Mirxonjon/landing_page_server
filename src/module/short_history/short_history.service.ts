@@ -16,6 +16,7 @@ import { FrendlyTeamEntity } from 'src/entities/our_friendly_team_imeges.entity'
 import { PartnerEntity } from 'src/entities/partner.entity';
 import { title } from 'process';
 import { PartnerCommentEntity } from 'src/entities/parnerComment.entity';
+import { text } from 'stream/consumers';
 
 @Injectable()
 export class ShortHistoryServise {
@@ -70,9 +71,13 @@ export class ShortHistoryServise {
       },
       select: {
         title: true,
-        image_link: true
+        image_link: true,
+        price: true,
+        text: true
       }
     });
+
+    const findServises = findServise.map(e => ({ title: e.title_ru, image_link: e.image_link ,price :e.price , paragraph : e.text }))
 
     const findImages = await FrendlyTeamEntity.find({
       order:{
@@ -96,7 +101,7 @@ export class ShortHistoryServise {
       headerImages : findHeaderImages,
       statistic : findStatistic,
       // Application : findAplication,
-      Servise: findServise,
+      Servise: findServises,
       TeamImages: findImages,
       partners: findPartners,
       PartnerComments : findPartnerComments
@@ -124,12 +129,12 @@ export class ShortHistoryServise {
       },
       select : {
         title_ru  :true ,
-        statistic: true 
+        statistic: true ,
+        
       }
     });
 
   const findstatis = findStatistic.map(e => ({ title: e.title_ru, statistic: e.statistic }))
-  
   
 
     // const findAplication = await ApplicationEntity.find({
@@ -144,11 +149,14 @@ export class ShortHistoryServise {
       },
       select: {
         title_ru: true,
-        image_link: true
+        image_link: true,    
+        price: true,
+        text_ru: true
       }
     });
 
-    const findServises = findServise.map(e => ({ title: e.title_ru, image_link: e.image_link }))
+  const findServises = findServise.map(e => ({ title: e.title_ru, image_link: e.image_link ,price :e.price , paragraph : e.text_ru }))
+
 
     const findImages = await FrendlyTeamEntity.find({
       order:{
@@ -221,11 +229,15 @@ export class ShortHistoryServise {
       },
       select: {
         title_en: true,
-        image_link: true
+        image_link: true,
+        price: true,
+        text_en: true
       }
     });
 
-    const findServises = findServise.map(e => ({ title: e.title_en, image_link: e.image_link }))
+    // const findServises = findServise.map(e => ({ title: e.title_en, image_link: e.image_link }))
+  const findServises = findServise.map(e => ({ title: e.title_ru, image_link: e.image_link ,price :e.price , paragraph : e.text_en }))
+
 
 
     const findImages = await FrendlyTeamEntity.find({

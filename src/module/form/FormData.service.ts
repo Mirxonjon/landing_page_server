@@ -54,7 +54,7 @@ export class FormDataServise {
             throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
           });
 
-         await writeToSheet([ [body.full_name, body.org_name , body.number]])
+         await writeToSheet([ [body.full_name , body.org_name , body.number]])
   }
 
   async update(
